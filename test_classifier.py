@@ -81,6 +81,29 @@ CLASSIFY_CASES = [
                   "which is warm and so looks reddish. Must not be reported "
                   "as a colour just because red happens to be nearest.",
     ),
+    Case(
+        sample="yellow book",
+        reading=(3291, 1417, 610, 5304),
+        expected="yellow",
+        criterion="The nearest red row, the loosely held tie, sits 0.067 "
+                  "away. Yellow is the tightest call the table has to make, "
+                  "so this is the case that guards it.",
+    ),
+    Case(
+        sample="yellow book, held closer",
+        reading=(7550, 3853, 1494, 13050),
+        expected="yellow",
+        criterion="Two and a half times the light of the reading above. "
+                  "Must not change the label.",
+    ),
+    Case(
+        sample="blue tie",
+        reading=(178, 169, 238, 563),
+        expected=classifier.UNKNOWN,
+        criterion="No blue row has been added yet. An unknown colour must "
+                  "report unknown rather than take the name of whichever "
+                  "known row happens to be least far away.",
+    ),
     # TODO: re-scan the green vaseline tub at these exposure settings, and
     # add a row per remaining colour.
 ]
