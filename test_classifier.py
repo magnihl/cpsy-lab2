@@ -104,6 +104,24 @@ CLASSIFY_CASES = [
                   "report unknown rather than take the name of whichever "
                   "known row happens to be least far away.",
     ),
+    Case(
+        sample="green book",
+        reading=(2372, 2595, 963, 6162),
+        expected="green",
+        criterion="The best separated colour in the table, 0.241 from its "
+                  "nearest neighbour. If this ever fails something has gone "
+                  "wrong upstream of the thresholds.",
+    ),
+    Case(
+        sample="green book, partly off the sample",
+        reading=(1168, 798, 357, 2356),
+        expected=classifier.UNKNOWN,
+        criterion="Taken during the green scan but with a third of the "
+                  "light of its neighbours and a strong red shift, so the "
+                  "sensor was not flat against the book. It sits 0.144 from "
+                  "green and 0.101 from yellow, and must report unknown "
+                  "rather than confidently answer yellow.",
+    ),
     # TODO: re-scan the green vaseline tub at these exposure settings, and
     # add a row per remaining colour.
 ]
