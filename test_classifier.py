@@ -136,6 +136,39 @@ NORMALISE_CASES = [
 ]
 
 
+# Two rows with different names must stay further apart than the spread of
+# repeated readings of one object, or which name a sample gets is decided by
+# noise. Averaging several red objects into one row once pushed that row to
+# within 0.067 of the yellow book, which is the failure this guards against.
+MIN_SEPARATION = 0.06
+
+
+def check_separation():
+    """Report the closest pair of rows that carry different names."""
+    worst = None
+    for i, (name_a, row_a) in enumerate(classifier.REFERENCES):
+        for name_b, row_b in classifier.REFERENCES[i + 1:]:
+            if name_a == name_b:
+                continue
+            gap = classifier.distance(row_a, row_b)
+            if worst is None or gap < worst[0]:
+                worst = (gap, name_a, name_b)
+
+    if worst is None:
+        print("SKIP row separation: fewer than two colours in the table")
+        return "skip"
+
+    gap, name_a, name_b = worst
+    label = "closest rows are {} and {}, {:.3f} apart".format(
+        name_a, name_b, gap)
+    if gap >= MIN_SEPARATION:
+        print("PASS row separation: {}".format(label))
+        return "pass"
+    print("FAIL row separation: {}, under the {} minimum"
+          .format(label, MIN_SEPARATION))
+    return "fail"
+
+
 def fill_clear(reading):
     """Substitute an unrecorded clear value with the gate threshold."""
     r, g, b, clear = reading
@@ -153,7 +186,7 @@ def check(sample, actual, expected):
 
 
 def run():
-    results = []
+    results = [check_separation()]
 
     for case in NORMALISE_CASES:
         actual = classifier.normalise(*case.reading)
