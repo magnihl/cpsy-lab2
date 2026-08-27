@@ -122,6 +122,31 @@ CLASSIFY_CASES = [
                   "green and 0.101 from yellow, and must report unknown "
                   "rather than confidently answer yellow.",
     ),
+    Case(
+        sample="light blue",
+        reading=(334, 658, 535, 1636),
+        expected="light blue",
+        criterion="Green reads higher than blue on this sample, because the "
+                  "sensor's green channel is the most sensitive of the "
+                  "three. The rule compares against a measured row rather "
+                  "than against what the eye expects, so it still works.",
+    ),
+    Case(
+        sample="light blue, more light",
+        reading=(400, 833, 697, 2089),
+        expected="light blue",
+        criterion="A third more light than the reading above, same label.",
+    ),
+    Case(
+        sample="light blue, sensor lifted off",
+        reading=(193, 263, 232, 680),
+        expected=classifier.UNKNOWN,
+        criterion="Same low clear and red shift as every other bad reading "
+                  "taken this session. It sits 0.082 from light blue "
+                  "against a MAX_DISTANCE of 0.08, so it is the case that "
+                  "pins the threshold. Raising MAX_DISTANCE past 0.082 "
+                  "would make this pass as light blue.",
+    ),
     # TODO: re-scan the green vaseline tub at these exposure settings, and
     # add a row per remaining colour.
 ]

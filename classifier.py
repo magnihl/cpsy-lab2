@@ -38,6 +38,7 @@ REFERENCES = [
     ("yellow", (0.619, 0.266, 0.115)),  # book
     ("yellow", (0.585, 0.299, 0.116)),  # book, held closer
     ("green", (0.395, 0.438, 0.167)),   # book
+    ("light blue", (0.217, 0.431, 0.352)),
 ]
 
 # How far a reading may sit from the nearest reference row and still take
