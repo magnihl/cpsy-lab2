@@ -19,6 +19,7 @@ REFERENCES = [
     ("yellow", (0.585, 0.299, 0.116)),  # book, held closer
     ("green", (0.395, 0.438, 0.167)),   # book
     ("light blue", (0.217, 0.431, 0.352)),
+    ("blue", (0.322, 0.290, 0.388)),  # tie, only two readings
 ]
 
 # Repeat readings of one object land within 0.03; the closest two rows of

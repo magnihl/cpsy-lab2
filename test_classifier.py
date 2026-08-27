@@ -32,8 +32,12 @@ CASES = [
          "The nearest red row is 0.067 away, the tightest call in the table."),
     Case("yellow book, closer", (7550, 3853, 1494, 13050), "yellow",
          "Two and a half times the light, same label."),
-    Case("blue tie", (178, 169, 238, 563), classifier.UNKNOWN,
-         "No blue row exists yet, so it must not borrow a nearby name."),
+    Case("blue tie", (178, 169, 238, 563), "blue",
+         "A dark navy reads only 0.39 blue, because a dark sample returns "
+         "little of anything. Still 0.179 from light blue."),
+    Case("blue tie, second reading", (199, 171, 216, 518), "blue",
+         "The two tie readings differ by 0.052, wider than any other "
+         "object here, so this is the loosest row in the table."),
     Case("green book", (2372, 2595, 963, 6162), "green",
          "Best separated colour in the table at 0.241 from its neighbour."),
     Case("green book, partly off", (1168, 798, 357, 2356), classifier.UNKNOWN,
