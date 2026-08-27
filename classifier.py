@@ -56,6 +56,7 @@ MAX_DISTANCE = 0.08
 # instead.
 MIN_CLEAR = 0
 
+
 def normalise(r, g, b):
     """Turn raw counts into shares of the total, dropping brightness.
 

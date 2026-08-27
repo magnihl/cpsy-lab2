@@ -28,14 +28,15 @@ READ_INTERVAL_SECONDS = 1.0
 class ColourSensor:
     """The TCS34725 colour sensor at I2C address 0x29."""
 
-    def __init__(self, i2c, integration_time=100, gain=4):
-        self._sensor = adafruit_tcs34725.TCS34725(i2c)
+    def __init__(self, i2c, address=SENSOR_ADDRESS, integration_time=100,
+                 gain=4):
+        self._sensor = adafruit_tcs34725.TCS34725(i2c, address=address)
         self._sensor.integration_time = integration_time
         self._sensor.gain = gain
         # The first reading is taken before a full integration cycle has
         # completed and always comes back as zeros. Throw it away so the
         # caller never sees it.
-        self._sensor.color_raw
+        _ = self._sensor.color_raw
 
     def read(self):
         """Return one reading as a (r, g, b, clear) tuple of raw counts."""
