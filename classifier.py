@@ -27,7 +27,12 @@ UNKNOWN = "unknown"
 #     "red": (0.85, 0.15, 0.00),
 #     "green": (0.20, 0.60, 0.20),
 #
-REFERENCES = {}
+REFERENCES = {
+    # Red cloth, averaged over eight readings taken 2026-08-27. Raw counts
+    # ranged from 595 to 1635 across those readings and the shares moved by
+    # less than 0.02, so one row covers the whole brightness range.
+    "red": (0.771, 0.104, 0.125),
+}
 
 # TODO: tune. How far a reading may sit from the nearest reference and
 # still be called by that name. Too small and everything reports unknown,
