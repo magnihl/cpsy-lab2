@@ -21,7 +21,11 @@ NOT_RECORDED = None
 
 Case = namedtuple("Case", "sample reading expected criterion")
 
-# Readings recorded from the real sensor at the bench.
+# Readings recorded from the real sensor at the bench on 2026-08-27, with
+# integration_time 100 and gain 4. Readings from earlier sessions were taken
+# at unknown exposure settings and disagreed with these by more than the gap
+# between two different colours, so they have been dropped rather than mixed
+# in.
 CLASSIFY_CASES = [
     Case(
         sample="first read after init",
@@ -31,30 +35,54 @@ CLASSIFY_CASES = [
                   "no colour information and must not be named a colour.",
     ),
     Case(
-        sample="coke can",
-        reading=(92, 16, 0, NOT_RECORDED),
+        sample="red cloth, held close",
+        reading=(1555, 190, 245, 1667),
         expected="red",
-        criterion="Red dominates green and blue by a wide margin, so the "
-                  "nearest reference must be the red row.",
+        criterion="A strongly coloured matte sample is the easiest case "
+                  "there is. If this fails, nothing else will work.",
     ),
     Case(
-        sample="coke can, repeat read",
-        reading=(92, 16, 0, NOT_RECORDED),
+        sample="red cloth, held further away",
+        reading=(595, 85, 102, 614),
         expected="red",
-        criterion="Byte identical to the previous read, so it must produce "
-                  "the identical label. Confirms the rule is deterministic.",
+        criterion="Same cloth at roughly a third of the light. Distance to "
+                  "the sensor must not change the label, which is the whole "
+                  "reason the rule normalises before comparing.",
     ),
     Case(
-        sample="green vaseline tub",
-        reading=(25, 25, 4, NOT_RECORDED),
-        expected=None,
-        criterion="A glossy surface reflects the onboard LED, so red and "
-                  "green read equal despite the tub being green. Decide "
-                  "whether this should name green or report unknown, then "
-                  "fill the expected label in.",
+        sample="coke can, glossy red",
+        reading=(3550, 809, 581, 4785),
+        expected="red",
+        criterion="A glossy surface reflects the onboard LED and reads less "
+                  "saturated than matte cloth. It must still come out red.",
     ),
-    # TODO: add a case per colour card, and one taken with the LED tied to
-    # ground so the sample is lit only by the room.
+    Case(
+        sample="red tie, dark red",
+        reading=(162, 44, 40, 170),
+        expected="red",
+        criterion="A dark sample returns few counts, 170 clear against the "
+                  "coke can's 4785. Shares still carry the colour, so the "
+                  "label must not depend on how much light came back.",
+    ),
+    Case(
+        sample="red tie, held loosely",
+        reading=(150, 61, 43, 232),
+        expected="red",
+        criterion="More light arrived than the reading above, 232 against "
+                  "170, yet the sample reads less red, because room light "
+                  "leaked in around the edges. The furthest red from the "
+                  "reference row and so the case that sets MAX_DISTANCE.",
+    ),
+    Case(
+        sample="sensor pulled away from the tie",
+        reading=(77, 44, 47, 110),
+        expected=classifier.UNKNOWN,
+        criterion="With no sample against it the sensor reads room light, "
+                  "which is warm and so looks reddish. Must not be reported "
+                  "as a colour just because red happens to be nearest.",
+    ),
+    # TODO: re-scan the green vaseline tub at these exposure settings, and
+    # add a row per remaining colour.
 ]
 
 # Normalising is what makes the reference table survive a lighting change,

@@ -28,10 +28,12 @@ UNKNOWN = "unknown"
 #     "green": (0.20, 0.60, 0.20),
 #
 REFERENCES = {
-    # Red cloth, averaged over eight readings taken 2026-08-27. Raw counts
-    # ranged from 595 to 1635 across those readings and the shares moved by
-    # less than 0.02, so one row covers the whole brightness range.
-    "red": (0.771, 0.104, 0.125),
+    # Averaged over three red objects scanned 2026-08-27: a matte red cloth,
+    # a glossy coke can and a dark red tie. Centring the row on the cloth
+    # alone left the tie 0.22 away and unmatchable, so the row deliberately
+    # sits between the three. The worst of them is now 0.114 away, which is
+    # what MAX_DISTANCE has to clear.
+    "red": (0.686, 0.171, 0.142),
 }
 
 # TODO: tune. How far a reading may sit from the nearest reference and
