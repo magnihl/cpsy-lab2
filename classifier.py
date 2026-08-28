@@ -7,9 +7,8 @@ import math
 
 UNKNOWN = "unknown"
 
-# Normalised bench readings, one row per object. Several rows per colour:
-# averaging four reds into one row put it close enough to yellow that the
-# dark tie matched the wrong name.
+# Normalised bench readings, one row per object. Averaging the four reds
+# into one row made the dark tie match yellow.
 REFERENCES = [
     ("red", (0.771, 0.104, 0.125)),     # matte cloth
     ("red", (0.719, 0.164, 0.118)),     # coke can, glossy
@@ -22,12 +21,11 @@ REFERENCES = [
     ("blue", (0.322, 0.290, 0.388)),  # tie, only two readings
 ]
 
-# Repeat readings of one object land within 0.03; the closest two rows of
+# Repeat readings of one object land within 0.03. Closest two rows of
 # different colours are 0.061 apart.
 MAX_DISTANCE = 0.08
 
-# Off. A good reading of the dark tie is clear 170 and a bad reading with
-# nothing in front of the sensor is clear 110, too close to threshold on.
+# Off. Dark tie reads clear 170, sensor at nothing reads 110. Too close.
 MIN_CLEAR = 0
 
 

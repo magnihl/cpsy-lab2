@@ -27,8 +27,7 @@ class ColourSensor:
         self._sensor = adafruit_tcs34725.TCS34725(i2c, address=address)
         self._sensor.integration_time = integration_time
         self._sensor.gain = gain
-        # First read happens before an integration cycle finishes and is
-        # always zeros.
+        # First read is always zeros, no integration cycle has finished.
         _ = self._sensor.color_raw
 
     def read(self):
@@ -57,8 +56,7 @@ class Display:
         self._oled.show()
 
     def blank(self):
-        # The panel keeps its last image through a reboot, so exiting
-        # without blanking leaves a stale reading on screen.
+        # The panel keeps its last image through a reboot.
         self._oled.fill(0)
         self._oled.show()
 
