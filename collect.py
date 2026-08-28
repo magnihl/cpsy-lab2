@@ -56,7 +56,7 @@ def main():
 
             print("  raw     r {} g {} b {} clear {} lux {}"
                   .format(r, g, b, clear, round(lux, 1)))
-            print('  paste   "{}": ({:.3f}, {:.3f}, {:.3f}),\n'
+            print('  paste   ("{}", ({:.3f}, {:.3f}, {:.3f})),\n'
                   .format(sample, *shares))
 
     print("Saved to {}".format(OUTPUT_FILE))
