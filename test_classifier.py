@@ -49,8 +49,23 @@ CASES = [
     Case("light blue, more light", (400, 833, 697, 2089), "light blue",
          "A third more light, same label."),
     Case("light blue, sensor lifted", (193, 263, 232, 680), classifier.UNKNOWN,
-         "Sits 0.082 against a MAX_DISTANCE of 0.08, so this is the reading "
-         "that pins the threshold."),
+         "Lands 0.081 from the nearest row against a limit of 0.05, so it "
+         "is refused with room to spare."),
+    Case("light purple", (3219, 2197, 1565, 7143), "purple",
+         "Nearest row of another colour is 0.147 away, the best separated "
+         "colour in the table."),
+    Case("light purple, less light", (1207, 718, 527, 2453), "purple",
+         "A third of the light, same object, same label."),
+    Case("darker purple", (2065, 1866, 1401, 5542), "purple",
+         "A second purple object 0.105 from the first, so purple needs two "
+         "rows the way red needs four."),
+    Case("darker purple, less light", (579, 481, 356, 1448), "purple",
+         "A quarter of the light off the same object."),
+    Case("orange highlighter", (4491, 2072, 867, 7654), "yellow",
+         "Orange is not in the table and lands on yellow. Recorded on "
+         "purpose: eight readings of two orange objects all did this, and "
+         "orange sits closer to yellow than repeat readings of one object "
+         "sit to each other."),
 ]
 
 NORMALISE_CASES = [

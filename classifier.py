@@ -19,11 +19,14 @@ REFERENCES = [
     ("green", (0.395, 0.438, 0.167)),   # book
     ("light blue", (0.217, 0.431, 0.352)),
     ("blue", (0.322, 0.290, 0.388)),  # tie, only two readings
+    ("purple", (0.477, 0.304, 0.220)),  # lighter of the two objects
+    ("purple", (0.391, 0.347, 0.261)),  # darker, sits 0.105 from the row above
 ]
 
-# Repeat readings of one object land within 0.03. Closest two rows of
-# different colours are 0.061 apart.
-MAX_DISTANCE = 0.08
+# Every reading that should get a name lands within 0.027 of its row, and
+# every reading that should be refused is past 0.075. Sitting in the middle
+# of that gap leaves room on both sides.
+MAX_DISTANCE = 0.05
 
 # Off. Dark tie reads clear 170, sensor at nothing reads 110. Too close.
 MIN_CLEAR = 0
