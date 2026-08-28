@@ -51,16 +51,14 @@ CASES = [
     Case("light blue, sensor lifted", (193, 263, 232, 680), classifier.UNKNOWN,
          "Lands 0.081 from the nearest row against a limit of 0.05, so it "
          "is refused with room to spare."),
-    Case("light purple", (3219, 2197, 1565, 7143), "purple",
-         "Nearest row of another colour is 0.147 away, the best separated "
-         "colour in the table."),
-    Case("light purple, less light", (1207, 718, 527, 2453), "purple",
-         "A third of the light, same object, same label."),
-    Case("darker purple", (2065, 1866, 1401, 5542), "purple",
-         "A second purple object 0.105 from the first, so purple needs two "
-         "rows the way red needs four."),
-    Case("darker purple, less light", (579, 481, 356, 1448), "purple",
-         "A quarter of the light off the same object."),
+    Case("nothing in front, dim room", (825, 457, 361, 1625),
+         classifier.UNKNOWN,
+         "Room light on its own. Sits 0.116 from the nearest row."),
+    Case("nothing in front, bright room", (3027, 2405, 1770, 7427),
+         classifier.UNKNOWN,
+         "Same empty sensor with more light. Brightness changes the raw "
+         "counts fourfold and the shares barely move, which is why the "
+         "refusal has to come from distance and not from clear."),
     Case("orange highlighter", (4491, 2072, 867, 7654), "yellow",
          "Orange is not in the table and lands on yellow. Recorded on "
          "purpose: eight readings of two orange objects all did this, and "
